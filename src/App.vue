@@ -6,8 +6,9 @@
 
 <style lang="scss">
 
- 
-@import './assets/style/main.scss';
+
+@import './assets/style/mixins';
+@import './assets/style/main.scss'; 
 
 </style>
 

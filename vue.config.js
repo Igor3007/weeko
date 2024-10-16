@@ -1,6 +1,7 @@
 const {
   defineConfig
 } = require('@vue/cli-service')
+
 module.exports = defineConfig({
   transpileDependencies: true,
   chainWebpack: config => {
@@ -19,5 +20,17 @@ module.exports = defineConfig({
     },
 
 
+  },
+
+  css: {
+    loaderOptions: {
+
+      scss: {
+        additionalData: `@import "~@/assets/style/_mixins.scss"; @import "~@/assets/style/variables/_variables.scss";`
+      },
+
+    }
   }
+
+
 })

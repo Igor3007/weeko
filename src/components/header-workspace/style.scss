@@ -1,3 +1,30 @@
+@mixin header-icon-style {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 8px;
+    transition: 0.3s linear;
+
+    & svg {
+        width: 100%;
+        height: 100%;
+        fill: var(--text-icons-base);
+        transition: 0.2s linear;
+    }
+
+    &:hover {
+        background-color: var(--accent-1);
+
+        & svg {
+            fill: #fff;
+        }
+    }
+}
+
 .header-workspace {
     display: flex;
     justify-content: space-between;
@@ -9,17 +36,8 @@
             align-items: center;
             gap: 8px;
 
-            & svg {
-                width: 100%;
-                height: 100%;
-
-                fill: #f00;
-            }
-
             & li {
-                background-color: #fff;
-                width: 48px;
-                height: 48px;
+                @include header-icon-style();
             }
         }
     }
@@ -28,4 +46,25 @@
 .hw-nav {
     display: flex;
     align-items: center;
+    gap: 8px;
+
+    &__current {
+        @include font-h1();
+        margin-right: 12px;
+
+        &:hover {
+            color: var(--accent-1);
+            cursor: pointer;
+        }
+    }
+
+    &__next,
+    &__prev {
+        @include header-icon-style();
+    }
+}
+
+.hw-week-number {
+    @include text-style-base-text-reg();
+    color: var(--text-icons-secondary-small);
 }
