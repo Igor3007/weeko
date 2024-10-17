@@ -1,0 +1,103 @@
+.checkbox {
+    display: inline-flex;
+    position: relative;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 140%;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    align-items: flex-start;
+
+
+
+    & input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+        display: none;
+    }
+
+    &__text {
+        line-height: 140%;
+        text-align: left;
+        transition: 0.3s ease;
+    }
+
+    &__elem {
+        position: relative;
+        height: 18px;
+        width: 18px;
+        min-width: 18px;
+        background-color: transparent;
+        display: inline-block;
+        margin-right: 10px;
+        border: 2px solid var(--text-icons-base);
+        border-radius: 4px;
+        transition: 0.3s ease;
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 2px;
+            top: 3px;
+            width: 10px;
+            height: 8px;
+            transition: 0.5s cubic-bezier(0.08, 0.82, 0.17, 1);
+            opacity: 0;
+            background-size: 13px;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: rotate(90deg);
+            background: transparent;
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOSIgaGVpZ2h0PSI3IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNOC4yLjJhMSAxIDAgMDEuMiAxLjRMNS4zOCA1LjYyN2EyIDIgMCAwMS0zLjA4Ny4xMzhsMS40ODYtMS4zMzhMNi44LjRBMSAxIDAgMDE4LjIuMnpNLjkzIDIuNzU3YTEgMSAwIDAxMS40MTMuMDc0bDEuNDM2IDEuNTk2LTEuNDg2IDEuMzM4TC44NTYgNC4xNjlhMSAxIDAgMDEuMDc1LTEuNDEyeiIgZmlsbD0iIzMzQjg2OCIvPjwvc3ZnPg==);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+
+        }
+    }
+
+    & input {
+
+
+        &:checked~.checkbox__elem {
+            z-index: 2;
+            background-color: var(--accent-1);
+            border-color: var(--accent-1);
+
+            &::after {
+                filter: grayscale(1) brightness(255);
+            }
+
+            // &:hover {
+            //     border-color: var(--color-1);
+            //     background-color: var(--color-1);
+            // }
+        }
+
+
+        &:checked~.checkbox__elem:after {
+            opacity: 1;
+            border-radius: 0;
+            transform: rotate(0);
+        }
+    }
+
+    &:hover {
+        & .checkbox {
+            &__elem {
+                border-color: var(--accent-1);
+            }
+
+            &__text {
+                color: var(--color-1);
+
+            }
+        }
+    }
+
+}

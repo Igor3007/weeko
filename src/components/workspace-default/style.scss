@@ -1,0 +1,29 @@
+.workspace-default {
+
+    padding: 24px 0;
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -6px;
+    }
+
+    &__item {
+        width: 100%;
+        padding: 6px;
+
+        @media screen and (min-width: $w760) {
+            width: 50%;
+        }
+
+        @media screen and (min-width: $w1024) {
+            width: 33.33%;
+        }
+
+        @media screen and (min-width: $w1200) {
+            width: 20%;
+        }
+
+
+    }
+}

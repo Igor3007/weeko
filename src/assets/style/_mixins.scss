@@ -151,104 +151,64 @@
 
 @mixin text-style-desktop-h-2() {
     font-size: 20px;
-    font-family: Commissioner;
     font-weight: 700;
-    font-style: normal;
-    line-height: 32px;
-    text-decoration: none;
-    text-transform: none;
+    line-height: 160%;
 }
 
 @mixin text-style-desktop-big-text-reg() {
     font-size: 20px;
-    font-family: Commissioner;
     font-weight: 400;
-    font-style: normal;
-    line-height: 32px;
-    text-decoration: none;
-    text-transform: none;
+    line-height: 160%;
 }
 
 @mixin text-style-desktop-medium-text-bold() {
     font-size: 18px;
-    font-family: Commissioner;
     font-weight: 700;
-    font-style: normal;
     line-height: 28px;
-    text-decoration: none;
-    text-transform: none;
 }
 
 @mixin text-style-desktop-medium-text-med() {
     font-size: 18px;
-    font-family: Commissioner;
     font-weight: 500;
-    font-style: normal;
-    line-height: 28px;
-    text-decoration: none;
-    text-transform: none;
+    line-height: 155%;
 }
 
 @mixin text-style-desktop-medium-text-reg() {
     font-size: 18px;
-    font-family: Commissioner;
     font-weight: 400;
-    font-style: normal;
-    line-height: 28px;
-    text-decoration: none;
-    text-transform: none;
+    line-height: 155%;
 }
 
 
 
 @mixin text-style-mobile-h-2() {
     font-size: 18px;
-    font-family: Commissioner;
     font-weight: 700;
-    font-style: normal;
-    line-height: 28px;
-    text-decoration: none;
-    text-transform: none;
+    line-height: 155%;
 }
 
 @mixin text-style-mobile-big-text-reg() {
     font-size: 18px;
-    font-family: Commissioner;
     font-weight: 400;
-    font-style: normal;
-    line-height: 28px;
-    text-decoration: none;
-    text-transform: none;
+    line-height: 155%;
 }
 
 @mixin text-style-mobile-medium-text-bold() {
     font-size: 16px;
-    font-family: Commissioner;
     font-weight: 700;
-    font-style: normal;
-    line-height: 24px;
-    text-decoration: none;
-    text-transform: none;
+    line-height: 150%;
 }
 
 @mixin text-style-mobile-medium-text-med() {
     font-size: 16px;
-    font-family: Commissioner;
     font-weight: 500;
-    font-style: normal;
-    line-height: 24px;
-    text-decoration: none;
-    text-transform: none;
+    line-height: 150%;
 }
 
 @mixin text-style-mobile-medium-text-reg() {
     font-size: 16px;
-    font-family: Commissioner;
     font-weight: 400;
-    font-style: normal;
-    line-height: 24px;
-    text-decoration: none;
-    text-transform: none;
+    line-height: 150%;
 }
 
 @mixin effect-style-shadow-cursors() {

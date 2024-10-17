@@ -1,0 +1,63 @@
+.wk-day {
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 12px;
+
+    &__head {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 10px;
+    }
+
+    &__tasks {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__date {
+        font-weight: 600;
+        color: var(--text-icons-base);
+
+        @include text-style-desktop-h-2
+    }
+
+    &__weekday {
+        color: var(--text-icons-secondary-big);
+    }
+
+}
+
+.wk-day-task {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-base);
+    padding: 6px 12px;
+    border-radius: 8px;
+
+    &__checkbox {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        opacity: 0;
+
+    }
+
+    &__title {
+        margin-right: 12px;
+    }
+
+    & .checkbox {
+        &__elem {
+            margin-right: 0;
+        }
+    }
+
+    &:hover {
+        & .wk-day-task {
+            &__checkbox {
+                opacity: 1;
+            }
+        }
+    }
+}
