@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <headerWorkspace></headerWorkspace>
-    <workspaceDefault></workspaceDefault>
+    <headerWorkspace @onChangeNav = changeCurrentWeek($event) :weekNumber = weekNumber ></headerWorkspace>
+    <workspaceDefault :tasks="createWeekParams" ></workspaceDefault>
   </div>
    
 </template>
@@ -12,8 +12,10 @@ import headerWorkspace from '../components/header-workspace/'
 import workspaceDefault from '../components/workspace-default'
 import { DateTime } from "luxon";
 
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
-  name: 'HomeView',
+  name: 'WorkSpace',
   components: {
     headerWorkspace, workspaceDefault
   },
@@ -21,36 +23,95 @@ export default {
   data() {
     return {
       weekNumber: 15,
-      weekParams: []
+      weekParams: [],
+      weekDays: [],
     }
   },
 
-  mounted() {
-    console.log()
+  created() {
+    
+    this.fetchUserTasks().then((() => {
+      // this.weekDays = this.createWeekParams
+
+      // console.log(this.weekDays)
+
+      //console.log(this.createWeekParams())
+        
+    }))
 
     
+  },
 
+  mounted() {
+    //console.log(this.getUserTasks)
+  },
+
+  computed:  {
+    ...mapGetters([
+      'getUserTasks',
+    ]),
+
+
+    createWeekParams() { 
+
+      const result = [];
+
+      this.getDaysWeek(2024, this.weekNumber).forEach(item => {
+        result.push({
+            date: item,
+            weekday: DateTime.fromSeconds(item).weekday,
+            dateFormat: DateTime.fromSeconds(item).toFormat('dd.MM'),
+            tasks: this.getTasksForDay(item)
+        })
+      })
+
+      result.push({
+        date: null,
+        weekday: null,
+        dateFormat: null,
+        tasks: this.getTasksForDay('')
+      })
+
+      return result;
+
+      }
   },
 
   methods: {
+
+    ...mapActions([
+      'fetchUserTasks'
+    ]),
+
+    changeCurrentWeek(e) {
+      switch(e.type) {
+        case 'next': this.weekNumber++ ; break;
+        case 'prev': this.weekNumber-- ; break;
+      }
+    },
+
     getDaysWeek(year, weekNumber) {
-      // Получаем первый день года
+
+      this.weekParams = [];
+
       const firstDayOfYear = DateTime.fromObject({ year: year, month: 1, day: 1 });
-      // Находим первый понедельник года
       const firstMonday = firstDayOfYear.startOf('week').plus({ weeks: weekNumber - 1 });
-      // Заполняем массив днями недели
       for (let i = 0; i < 7; i++) {
           this.weekParams.push(firstMonday.plus({ days: i }).toSeconds());
       }
       return this.weekParams;
     },
 
-    createWeekParams() {
+    getTasksForDay(timestamp) {
+      return this.getUserTasks.filter(item => Number(item.date) == Number(timestamp))
+    },
 
-      this.getDaysWeek(2024, this.weekNumber)
+    
 
-    }
+  },
 
+  watch: {
+     
   }
 }
 </script> 

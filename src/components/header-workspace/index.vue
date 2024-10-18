@@ -3,14 +3,14 @@
         <div class="header-workspace__nav">
             <div class="hw-nav">
                 <div class="hw-nav__current">Апрель 2024</div>
-                <div class="hw-nav__prev">
+                <div class="hw-nav__prev" @click = "changeWeek('prev')">
                     <icon icon-name="ic_prev" ></icon>
                 </div>
-                <div class="hw-nav__next">
+                <div class="hw-nav__next" @click = "changeWeek('next')">
                     <icon icon-name="ic_next" ></icon>
                 </div>
             </div>
-            <div class="hw-week-number">Неделя 15</div>
+            <div class="hw-week-number">Неделя {{ weekNumber }}</div>
         </div>
         <div class="header-workspace__action">
             <ul>
@@ -34,6 +34,18 @@ export default {
 
     components: {
         icon
+    },
+
+    methods: {
+        changeWeek(type) {
+            this.$emit('onChangeNav', {
+                type
+            })
+        }
+    },
+
+    props: {
+        weekNumber: Number
     }
 
 }

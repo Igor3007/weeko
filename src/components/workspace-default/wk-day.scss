@@ -34,6 +34,7 @@
     background-color: var(--bg-base);
     padding: 6px 12px;
     border-radius: 8px;
+    min-height: 36px;
 
     &__checkbox {
         margin-left: auto;
@@ -45,6 +46,10 @@
 
     &__title {
         margin-right: 12px;
+        width: calc(100% - 40px);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 
     & .checkbox {

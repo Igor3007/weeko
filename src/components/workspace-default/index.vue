@@ -2,22 +2,31 @@
   <div>
     <div class="workspace-default">
       <div class="workspace-default__list">
-        <div v-for="day in days" :key="day.name" class="workspace-default__item">
+        <div v-for="day in params" :key="day.date" class="workspace-default__item">
           <div class="wk-day">
-            <div class="wk-day__head">
-              <div class="wk-day__date">{{ day.date }}</div>
-              <div class="wk-day__weekday">{{day.name}}</div>
+
+            <div v-if="day.weekday" class="wk-day__head">
+              <div class="wk-day__date">{{ day.dateFormat }}</div>
+              <div class="wk-day__weekday">{{day.weekday}}</div>
             </div>
+
+            <div v-else class="wk-day__head">
+              <div class="wk-day__date">Список без даты</div>
+              <div class="wk-day__weekday"></div>
+            </div>
+
             <div class="wk-day__main">
               <div class="wk-day__tasks">
-                <div class="wk-day__task" v-for="item in tasks" :key="item">
+
+                <div class="wk-day__task" v-for="item in day.tasks" :key="item.id">
                   <div class="wk-day-task">
-                    <div class="wk-day-task__title">{{ item }}</div>
+                    <div class="wk-day-task__title">{{ item.title }}</div>
                     <div class="wk-day-task__checkbox">
                       <checkbox></checkbox> 
                     </div>
                   </div>
                 </div>
+                
               </div>
             </div>
           </div>
@@ -40,65 +49,77 @@
       data() {
         return {
 
-          days: [
-            {
-              name: 'Пн',
-              date: '08.04',
-              type: 'day'
-            },
-            {
-              name: 'Вт',
-              date: '09.04',
-              type: 'day'
-            },
-            {
-              name: 'Ср',
-              date: '10.04',
-              type: 'day'
-            },
-            {
-              name: 'Чт',
-              date: '11.04',
-              type: 'day'
-            },
-            {
-              name: 'Пт',
-              date: '12.04',
-              type: 'day'
-            },
-            {
-              name: 'Сб',
-              date: '13.04',
-              type: 'day'
-            },
-            {
-              name: 'Вс',
-              date: '14.04',
-              type: 'day'
-            },
-            {
-              name: 'fr1',
-              date: 'Список без даты',
-              type: 'free'
-            },
-            {
-              name: 'fr2',
-              date: 'Список без даты',
-              type: 'free'
-            },
-            {
-              name: 'fr3',
-              date: 'Список без даты',
-              type: 'free'
-            },
-          ],
+          
+          dayParams: {
+            minWeekDay: 8,
+            minWeekEnd: 4,
+            minAll: 4
+          }
+           
+        }
+      },
 
-          tasks: [
-            'Задача', 
-            'Наведение (курсор ладонь)', 
-            'Задача 3 с длинным текстом...', 
-            'Наведение на иконку', 
-          ]
+      created() {
+        console.log(this.lang)
+      },
+
+      computed:{
+
+        
+        params() {
+
+          let res = []
+
+          this.tasks.forEach(day => {
+
+            this.createRowEmpty(day)
+
+            res.push({
+              ...day
+            })
+            
+          }); 
+
+          return res || []
+        }
+        
+
+         
+      },
+
+      props: {
+        tasks: [Array, Object]
+      },
+
+     
+
+      methods: {
+        createRowEmpty(day) {
+
+            //если будний день
+            if(day.weekday <= 5 && day.weekday) {
+              
+              let count = day.tasks.length
+              let delta = this.dayParams.minWeekDay - count
+
+              for(let i=0; i < delta; i++) {
+                day.tasks.push({})
+              }
+            }
+
+            // выходной и бездаты
+
+            if(day.weekday > 5 || !day.weekday) {
+              
+              let count = day.tasks.length
+              let delta = this.dayParams.minWeekEnd - count
+
+              for(let i=0; i < delta; i++) {
+                day.tasks.push({})
+              }
+            }
+
+           
         }
       }
   }
