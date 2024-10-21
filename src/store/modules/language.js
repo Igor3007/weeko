@@ -19,7 +19,6 @@ const actions = {
                 context;
                 data;
                 console.log(response.data)
-
             })
     }
 }
