@@ -6,28 +6,29 @@
           <div class="wk-day">
 
             <div v-if="day.weekday" class="wk-day__head">
-              <div class="wk-day__date">{{ day.dateFormat }}</div>
-              <div class="wk-day__weekday">{{day.weekday}}</div>
+              <div class="wk-day__date" :title="day.date">{{ day.dateFormat }}</div>
+              <div class="wk-day__weekday">{{lang.weekday[day.weekday]}}</div>
             </div>
 
             <div v-else class="wk-day__head">
-              <div class="wk-day__date">Список без даты</div>
+              <div class="wk-day__date">{{ lang['LIST_NO_DATE'] }}</div>
               <div class="wk-day__weekday"></div>
             </div>
 
-            <div class="wk-day__main">
-              <div class="wk-day__tasks">
-
+            <div class="wk-day__main"> 
+               
+                <draggable class="wk-day__tasks" :list="day.tasks" group="tasks" @change="changeSortable($event, day)">
                 <div class="wk-day__task" v-for="item in day.tasks" :key="item.id">
                   <div class="wk-day-task">
-                    <div class="wk-day-task__title">{{ item.title }}</div>
+                    <div class="wk-day-task__title">{{ item.title }}</div> 
                     <div class="wk-day-task__checkbox">
                       <checkbox></checkbox> 
                     </div>
                   </div>
                 </div>
+                </draggable>
                 
-              </div>
+               
             </div>
           </div>
         </div>
@@ -39,17 +40,18 @@
 <script>
 
   import checkbox from '@/common-components/checkbox'
+  import draggable from 'vuedraggable'
+  import { mapMutations } from 'vuex'
 
   export default {
       name: 'workspace-default',
       components: {
-        checkbox
+        checkbox,
+        draggable
       },
 
       data() {
         return {
-
-          
           dayParams: {
             minWeekDay: 8,
             minWeekEnd: 4,
@@ -94,6 +96,11 @@
      
 
       methods: {
+
+        ...mapMutations([
+          'changeTaskDate'
+        ]),
+
         createRowEmpty(day) {
 
             //если будний день
@@ -120,6 +127,19 @@
             }
 
            
+        },
+
+        changeSortable(e, day) {
+          if('added' in e) {
+
+            this.changeTaskDate({
+              task_id: e.added.element.id,
+              newDate: day.date
+            })
+
+          }
+
+          
         }
       }
   }

@@ -2,7 +2,7 @@
     <div class="header-workspace">
         <div class="header-workspace__nav">
             <div class="hw-nav">
-                <div class="hw-nav__current">Апрель 2024</div>
+                <div class="hw-nav__current">{{ lang.month[currentMonth] }} {{currentYear}}</div>
                 <div class="hw-nav__prev" @click = "changeWeek('prev')">
                     <icon icon-name="ic_prev" ></icon>
                 </div>
@@ -36,6 +36,10 @@ export default {
         icon
     },
 
+    mounted() {
+        console.log(this.lang, 'lang')
+    },
+
     methods: {
         changeWeek(type) {
             this.$emit('onChangeNav', {
@@ -45,7 +49,9 @@ export default {
     },
 
     props: {
-        weekNumber: Number
+        weekNumber: Number,
+        currentYear: Number,
+        currentMonth: [Number, String],
     }
 
 }

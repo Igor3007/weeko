@@ -1,6 +1,12 @@
 <template>
   <div class="container">
-    <headerWorkspace @onChangeNav = changeCurrentWeek($event) :weekNumber = weekNumber ></headerWorkspace>
+    <headerWorkspace 
+      @onChangeNav = changeCurrentWeek($event) 
+      :weekNumber = weekNumber
+      :currentYear = currentYear
+      :currentMonth = currentMonth
+      >
+    </headerWorkspace>
     <workspaceDefault :tasks="createWeekParams" ></workspaceDefault>
   </div>
    
@@ -22,7 +28,10 @@ export default {
 
   data() {
     return {
-      weekNumber: 15,
+      currentDate: DateTime.now(),
+      weekNumber: DateTime.now().weekNumber,
+      currentYear: DateTime.now().year,
+      currentMonth: DateTime.now().month,
       weekParams: [],
       weekDays: [],
     }
@@ -84,10 +93,23 @@ export default {
     ]),
 
     changeCurrentWeek(e) {
+
+      
+
       switch(e.type) {
-        case 'next': this.weekNumber++ ; break;
-        case 'prev': this.weekNumber-- ; break;
+        case 'next': 
+          this.currentDate = this.currentDate.startOf('week').plus({ weeks: 1 })
+        break;
+
+        case 'prev':
+          this.currentDate = this.currentDate.startOf('week').minus({ weeks: 1 })
+        break;
       }
+
+      this.weekNumber = this.currentDate.weekNumber;
+      this.currentYear = this.currentDate.year;
+      this.currentMonth = this.currentDate.month;
+
     },
 
     getDaysWeek(year, weekNumber) {

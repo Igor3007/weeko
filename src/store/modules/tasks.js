@@ -13,12 +13,21 @@ const getters = {
 
 const mutations = {
     setUserTask(state, data) {
-
         data.forEach(element => {
             state.tasks.push(element)
         });
-
     },
+
+    changeTaskDate(state, data) {
+
+        state.tasks.forEach(item => {
+            if(item.id == data.task_id) {
+                item.date = data.newDate
+                console.log(item.date)
+            } 
+        })
+
+    }
 }
 
 const actions = {
