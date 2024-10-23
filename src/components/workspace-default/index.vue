@@ -2,7 +2,11 @@
   <div>
     <div class="workspace-default">
       <div class="workspace-default__list">
-        <div v-for="day in params" :key="day.date" class="workspace-default__item">
+        <div v-for="day in params" :key="day.date" class="workspace-default__item"
+            :class="{
+              'is-last-day' : day.date < statusDay 
+            }"
+          >
           <div class="wk-day">
 
             <div v-if="day.weekday" class="wk-day__head">
@@ -18,11 +22,18 @@
             <div class="wk-day__main"> 
                
                 <draggable class="wk-day__tasks" :list="day.tasks" group="tasks" @change="changeSortable($event, day)">
-                <div class="wk-day__task" v-for="item in day.tasks" :key="item.id">
-                  <div class="wk-day-task">
+                <div class="wk-day__task" 
+                      v-for="item in day.tasks" 
+                      :key="item.id"
+                      :class="{
+                        'is-status-closed' : item.status == 'closed'
+                      }" 
+
+                  >
+                  <div class="wk-day-task" >
                     <div class="wk-day-task__title">{{ item.title }}</div> 
-                    <div class="wk-day-task__checkbox">
-                      <checkbox></checkbox> 
+                    <div class="wk-day-task__checkbox" v-if="item.title">
+                      <checkbox :checked="item.status == 'closed'" ></checkbox> 
                     </div>
                   </div>
                 </div>
@@ -42,6 +53,7 @@
   import checkbox from '@/common-components/checkbox'
   import draggable from 'vuedraggable'
   import { mapMutations } from 'vuex'
+  import { DateTime } from "luxon";
 
   export default {
       name: 'workspace-default',
@@ -61,11 +73,13 @@
         }
       },
 
-      created() {
-        console.log(this.lang)
-      },
+      
 
       computed:{
+
+        statusDay(){
+          return DateTime.now().startOf('day').toSeconds()
+        },
 
         
         params() {
@@ -131,6 +145,10 @@
 
         changeSortable(e, day) {
           if('added' in e) {
+
+            if(day.date < DateTime.now().startOf('day').toSeconds()) {
+              return false
+            }
 
             this.changeTaskDate({
               task_id: e.added.element.id,

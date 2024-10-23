@@ -36,10 +36,6 @@ export default {
         icon
     },
 
-    mounted() {
-        console.log(this.lang, 'lang')
-    },
-
     methods: {
         changeWeek(type) {
             this.$emit('onChangeNav', {

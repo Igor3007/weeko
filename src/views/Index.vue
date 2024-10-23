@@ -30,6 +30,7 @@ export default {
     return {
       currentDate: DateTime.now(),
       weekNumber: DateTime.now().weekNumber,
+      currentDay: DateTime.now().day,
       currentYear: DateTime.now().year,
       currentMonth: DateTime.now().month,
       weekParams: [],
@@ -38,34 +39,21 @@ export default {
   },
 
   created() {
-    
-    this.fetchUserTasks().then((() => {
-      // this.weekDays = this.createWeekParams
-
-      // console.log(this.weekDays)
-
-      //console.log(this.createWeekParams())
-        
-    }))
-
-    
-  },
-
-  mounted() {
-    //console.log(this.getUserTasks)
+    if(!this.getUserTasks.length) this.fetchUserTasks() 
   },
 
   computed:  {
+
     ...mapGetters([
       'getUserTasks',
-    ]),
+    ]), 
 
 
     createWeekParams() { 
 
       const result = [];
 
-      this.getDaysWeek(2024, this.weekNumber).forEach(item => {
+      this.getDaysWeek(this.currentYear, this.weekNumber).forEach(item => {
         result.push({
             date: item,
             weekday: DateTime.fromSeconds(item).weekday,
@@ -94,8 +82,6 @@ export default {
 
     changeCurrentWeek(e) {
 
-      
-
       switch(e.type) {
         case 'next': 
           this.currentDate = this.currentDate.startOf('week').plus({ weeks: 1 })
@@ -118,6 +104,7 @@ export default {
 
       const firstDayOfYear = DateTime.fromObject({ year: year, month: 1, day: 1 });
       const firstMonday = firstDayOfYear.startOf('week').plus({ weeks: weekNumber - 1 });
+
       for (let i = 0; i < 7; i++) {
           this.weekParams.push(firstMonday.plus({ days: i }).toSeconds());
       }
@@ -125,7 +112,28 @@ export default {
     },
 
     getTasksForDay(timestamp) {
-      return this.getUserTasks.filter(item => Number(item.date) == Number(timestamp))
+      return this.getUserTasks.filter(item => {
+
+
+        //если дата задачи меньше или равно текущей
+        if(Number(item.date) <= DateTime.now().startOf('day').toSeconds()) {
+
+          //если дата равна текущей добавляем задачу на текущий день
+          if(timestamp == DateTime.now().startOf('day').toSeconds()) {
+            
+            if(item.status == 'work' && item.date) return true
+
+          }
+
+        }else{
+          if(Number(item.date) == Number(timestamp)) return true
+        } 
+
+        
+
+        
+
+      })
     },
 
     

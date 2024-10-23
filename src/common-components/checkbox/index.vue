@@ -1,6 +1,6 @@
 <template>
     <label class="checkbox">
-        <input type="checkbox">
+        <input type="checkbox" :checked="checked">
         <span class="checkbox__elem"></span>
         <span class="checkbox__text">{{ text }}</span>
     </label>
@@ -10,7 +10,8 @@
 export default {
     name: 'checkbox-component',
     props: {
-        text: String
+        text: String,
+        checked: Boolean
     }
 }
 </script>

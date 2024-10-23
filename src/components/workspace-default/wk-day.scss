@@ -26,6 +26,19 @@
         color: var(--text-icons-secondary-big);
     }
 
+    &__task {
+        &.is-status-closed {
+            text-decoration: line-through;
+
+            & .wk-day-task {
+                &__checkbox {
+                    opacity: 1;
+                    filter: grayscale(1);
+                }
+            }
+        }
+    }
+
 }
 
 .wk-day-task {
