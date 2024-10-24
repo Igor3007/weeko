@@ -57,8 +57,6 @@ export default {
 
         changeUserTheme() {
 
-             
-
             let theme = this.getUserConfig.theme == 'default' ? 'dark' : 'default'
             let htmlElement = document.documentElement;
 

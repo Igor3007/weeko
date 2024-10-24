@@ -4,7 +4,7 @@
       <div class="workspace-default__list">
         <div v-for="day in params" :key="day.date" class="workspace-default__item"
             :class="{
-              'is-last-day' : day.date < isCurrentDay && day.date,
+              'is-last-day' : day.dates < isCurrentDay && day.date,
               'is-current-day' : day.date == isCurrentDay && day.date
             }"
           >
@@ -22,7 +22,7 @@
 
             <div class="wk-day__main">  
                
-                <draggable class="wk-day__tasks" handler="wk-day__tasks" :list="day.tasks" group="tasks" @change="changeSortable($event, day)">
+                <draggable class="wk-day__tasks" handle=".wk-day-task__title" :list="day.tasks" group="tasks" @change="changeSortable($event, day)">
                   <div class="wk-day__task" 
                         v-for="item in day.tasks" 
                         :key="item.id"
@@ -32,7 +32,7 @@
 
                     >
 
-                    <div class="wk-day-task" v-if="item.date" >
+                    <div class="wk-day-task" v-if="item.title" >
                       <div class="wk-day-task__title">{{ item.title }} {{ item.date ? getDateTaskFormat(item.date) : '' }}</div> 
                       <div class="wk-day-task__checkbox" v-if="item.title">
                         <checkbox 
@@ -43,13 +43,13 @@
                     </div>
 
                     <div class="wk-create-task" v-else >
-                      <div class="wk-create-task__input">Добавить задачу</div>
-                      <div class="wk-create-task__icon">
-                        <icon icon-name="ic_add"></icon> 
+                      <div class="wk-create-task__input">
+                        <input type="text" placeholder="Добавить задачу" @blur="onBlurInputCreate($event, day)">
+                      </div>
+                      <div class="wk-create-task__icon" @click="createTaskOnEditor(day)">
+                        <icon icon-name="ic_add" ></icon> 
                       </div>
                     </div>
-
-
                   </div>
                 </draggable>
                 
@@ -136,10 +136,43 @@
 
         ...mapActions([
           'SendChangeTask',
+          'SendCreateTask'
         ]), 
 
         getDateTaskFormat(date) {
           return DateTime.fromSeconds(Number(date)).toFormat('dd.MM')
+        },
+
+        createTaskOnEditor(day) {
+          this.$emit('onCreateTaskEditor', {
+            day
+          })
+        },
+
+        onBlurInputCreate(e, day) {
+            if(e.target.value) {
+              this.createTask({
+                title: e.target.value,
+                date: day.date
+              })
+            }
+        },
+
+        createTask(data) {
+            let params = {
+              
+              id: Math.floor(Math.random() * 9999),
+              date: DateTime.now().startOf('day').toSeconds() ,
+              title: "Новая задача",
+              desc: "",
+              status: "work",
+              user_id: "1",
+              color: "",
+
+              ...data
+            }
+
+            this.SendCreateTask(params)
         },
 
         createRowEmpty(day) {

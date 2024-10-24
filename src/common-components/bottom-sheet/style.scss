@@ -1,0 +1,237 @@
+.bottom-sheet {
+  position: relative;
+  z-index: 99999;
+  transition: all 0.3s ease;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  &.closed {
+    visibility: hidden;
+
+    @media screen and (min-width: $w576) {
+      transition: none;
+      display: none;
+    }
+  }
+
+  &.opened {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    @media screen and (min-width: $w576) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+  }
+}
+
+@keyframes show {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@keyframes hide {
+  0% {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+@keyframes zoomInUp {
+  from {
+    transform: scale(0.97) translate3d(0, 16px, 0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes zoomInUp {
+  from {
+    transform: scale(0.97) translate3d(0, 16px, 0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+
+.bottom-sheet__content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+}
+
+
+
+.bottom-sheet__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.3) !important;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  backdrop-filter: blur(5px);
+
+  .bottom-sheet.closed & {
+    animation: hide 0.3s ease;
+
+  }
+
+  .bottom-sheet.opened & {
+    animation: show 0.3s ease;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.bottom-sheet__card {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-base);
+  width: 100%;
+
+  max-height: calc(100% - 56px);
+  margin: 0 auto;
+  border-radius: 28px 28px 0 0;
+
+  @media screen and (min-width: $w576) {
+    bottom: auto !important;
+  }
+
+  &.square {
+    border-radius: 0;
+  }
+
+  &.stripe {
+    padding-bottom: 20px;
+  }
+
+  &.fx-default {
+    transition: bottom 0.3s ease;
+  }
+
+  &.fx-fadein-scale {
+    transition: all 0.3s;
+
+    .bottom-sheet.opened & {
+      transform: translate(-50%, 0) scale(1);
+    }
+  }
+
+  &.fx-slide-from-right {
+    transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+
+    .bottom-sheet.opened & {
+      transform: translate(-50%, 0);
+    }
+  }
+
+  &.fx-slide-from-left {
+    transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+
+    .bottom-sheet.opened & {
+      transform: translate(-50%, 0);
+    }
+  }
+
+  .bottom-sheet.moving & {
+    transition: none;
+  }
+}
+
+@media screen and (min-width: $w576) {
+  .bottom-sheet__card.fx-default {
+    bottom: 0px;
+    /* top: 50%; */
+    margin: auto;
+    /* transform: translateY(-50%); */
+    border-radius: 24px;
+  }
+}
+
+.bottom-sheet__pan {
+  padding-bottom: 22px;
+  position: relative;
+
+  @media screen and (min-width: $w576) {
+    position: absolute;
+    right: 14px;
+    top: 14px;
+    z-index: 5;
+    padding-bottom: 0;
+  }
+}
+
+.bottom-sheet__scroll.vb-content {
+  width: auto !important;
+  scrollbar-width: none;
+}
+
+.bottom-sheet__bar {
+
+  @media screen and (max-width: $w576) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 4px;
+    background-color: var(--bg-base);
+    opacity: 0.4;
+    border-radius: 8px;
+  }
+
+  @media screen and (min-width: $w576) {
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.6;
+    background-size: 20px;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE5Ljc1Ni4yNDRhLjgzMy44MzMgMCAwMC0xLjE3OCAwTDEwIDguODIyIDEuNDIyLjI0NGEuODMzLjgzMyAwIDAwLTEuMTc4IDAgLjgzMy44MzMgMCAwMDAgMS4xNzhMOC44MjIgMTAgLjI0NCAxOC41NzhhLjgzMy44MzMgMCAwMDAgMS4xNzguODMzLjgzMyAwIDAwMS4xNzggMEwxMCAxMS4xNzhsOC41NzggOC41NzhhLjgzMy44MzMgMCAwMDEuMTc4LTEuMTc4TDExLjE3OCAxMGw4LjU3OC04LjU3OGEuODMzLjgzMyAwIDAwMC0xLjE3OHoiIGZpbGw9IiNDMkMyQzIiLz48L3N2Zz4=);
+  }
+}
+
+.bottom-sheet__container {
+  padding: 16px;
+
+  @media screen and (min-width: $w1200) {
+    padding: 40px;
+  }
+}

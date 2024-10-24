@@ -7,7 +7,10 @@
       :currentMonth = currentMonth
       >
     </headerWorkspace>
-    <workspaceDefault :tasks="createWeekParams" ></workspaceDefault>
+    <workspaceDefault :tasks="createWeekParams" @onCreateTaskEditor="createTaskEditor()" ></workspaceDefault>
+    <bottom-sheet ref="popupCreateTask" max-width="640px">
+      <div>create task</div>
+    </bottom-sheet>
   </div>
    
 </template>
@@ -16,14 +19,14 @@
  
 import headerWorkspace from '../components/header-workspace/'
 import workspaceDefault from '../components/workspace-default'
+import bottomSheet from '@/common-components/bottom-sheet'
 import { DateTime } from "luxon";
-
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'WorkSpace',
   components: {
-    headerWorkspace, workspaceDefault
+    headerWorkspace, workspaceDefault, bottomSheet
   },
 
   data() {
@@ -79,6 +82,10 @@ export default {
     ...mapActions([
       'fetchUserTasks'
     ]),
+
+    createTaskEditor() {
+      this.$refs.popupCreateTask.open()
+    },
 
     changeCurrentWeek(e) {
 

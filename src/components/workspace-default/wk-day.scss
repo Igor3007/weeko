@@ -48,11 +48,13 @@
     padding: 6px 12px;
     border-radius: 8px;
     min-height: 36px;
-     
 
-    &__icon{
+
+    &__icon {
         margin-left: auto;
-        opacity: 0;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
 
         & svg {
             width: 16px;
@@ -61,11 +63,48 @@
         }
     }
 
-    &__input{
-        @include text-style-base-text-bold;
-        color: var(--accent-1);
-        cursor: pointer;
+    &__input {
+
+
+        flex-grow: 1;
+
+        & input {
+            background-color: transparent;
+            width: 100%;
+            display: block;
+            padding-right: 16px;
+            color: var(--text-icons-base);
+            border: none;
+
+            &::placeholder {
+                @include text-style-base-text-bold;
+                color: var(--accent-1);
+                opacity: 1;
+            }
+
+            &:active,
+            &:focus {
+                outline: none;
+                opacity: 1;
+            }
+        }
+    }
+
+    &__input input,
+    &__icon {
         opacity: 0;
+        transition: 0.2s ease;
+    }
+
+
+    &:hover {
+        .wk-create-task {
+
+            &__input input,
+            &__icon {
+                opacity: 1;
+            }
+        }
     }
 
 }

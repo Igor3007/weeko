@@ -54,6 +54,10 @@ const actions = {
 
     SendChangeTask(context, data) {
         context.commit('changeTaskStatus', data)
+    },
+
+    SendCreateTask(context, data) {
+        context.commit('setUserTask', [data])
     }
 }
 
