@@ -1,12 +1,11 @@
-@import './theme/Light.scss';
+@import './theme/default.scss';
+@import './theme/Dark.scss';
+
 @import './color/green.scss';
 
 
 $main: #26487B;
-
-
 /* media breakpoints */
-
 $w1660: 1660px;
 $w1510: 1510.98px;
 $w1440: 1440.98px;

@@ -6,7 +6,7 @@ body {
     font-style: normal;
     font-size: 15px;
     line-height: 150%;
-    color: #111;
+    color: var(--text-icons-base);
     letter-spacing: normal;
     text-size-adjust: none;
     -webkit-text-size-adjust: none;
@@ -242,3 +242,7 @@ input[type="date"] {
     opacity: 1;
     transition: opacity 0.5s ease;
 }
+
+.sortable-ghost ~ div:last-child {
+    display: none
+  }

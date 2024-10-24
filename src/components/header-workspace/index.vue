@@ -16,7 +16,7 @@
             <ul>
                 <li><icon icon-name="ic_62" ></icon></li>
                 <li><icon icon-name="ic_smart" ></icon></li>
-                <li><icon icon-name="ic_theme" ></icon></li>
+                <li @click="changeUserTheme" ><icon icon-name="ic_theme" ></icon></li>
                 <li><icon icon-name="ic_user" ></icon></li>
                 <li><icon icon-name="ic_menu" ></icon></li>
             </ul>
@@ -27,6 +27,7 @@
 <script>
 
 import icon from '@/common-components/icon'
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
 
@@ -36,11 +37,37 @@ export default {
         icon
     },
 
+    computed: {
+        ...mapGetters([
+        'getUserConfig'
+        ])
+    },
+
     methods: {
+
+        ...mapActions([
+            'sendUserConfig'
+        ]),
+
         changeWeek(type) {
             this.$emit('onChangeNav', {
                 type
             })
+        },
+
+        changeUserTheme() {
+
+             
+
+            let theme = this.getUserConfig.theme == 'default' ? 'dark' : 'default'
+            let htmlElement = document.documentElement;
+
+            htmlElement.setAttribute('theme', theme);
+
+            this.sendUserConfig({
+                theme
+            })
+
         }
     },
 

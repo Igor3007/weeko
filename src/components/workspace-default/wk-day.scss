@@ -1,5 +1,5 @@
 .wk-day {
-    background-color: #fff;
+    background-color: var(--bg-contrast);
     padding: 16px;
     border-radius: 12px;
 
@@ -41,6 +41,35 @@
 
 }
 
+.wk-create-task {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-base);
+    padding: 6px 12px;
+    border-radius: 8px;
+    min-height: 36px;
+     
+
+    &__icon{
+        margin-left: auto;
+        opacity: 0;
+
+        & svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--accent-1);
+        }
+    }
+
+    &__input{
+        @include text-style-base-text-bold;
+        color: var(--accent-1);
+        cursor: pointer;
+        opacity: 0;
+    }
+
+}
+
 .wk-day-task {
     display: flex;
     align-items: center;
@@ -63,6 +92,7 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        cursor: grab;
     }
 
     & .checkbox {

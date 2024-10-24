@@ -4,10 +4,11 @@
       <div class="workspace-default__list">
         <div v-for="day in params" :key="day.date" class="workspace-default__item"
             :class="{
-              'is-last-day' : day.date < statusDay 
+              'is-last-day' : day.date < isCurrentDay && day.date,
+              'is-current-day' : day.date == isCurrentDay && day.date
             }"
           >
-          <div class="wk-day">
+          <div class="wk-day"> 
 
             <div v-if="day.weekday" class="wk-day__head">
               <div class="wk-day__date" :title="day.date">{{ day.dateFormat }}</div>
@@ -19,24 +20,37 @@
               <div class="wk-day__weekday"></div>
             </div>
 
-            <div class="wk-day__main"> 
+            <div class="wk-day__main">  
                
-                <draggable class="wk-day__tasks" :list="day.tasks" group="tasks" @change="changeSortable($event, day)">
-                <div class="wk-day__task" 
-                      v-for="item in day.tasks" 
-                      :key="item.id"
-                      :class="{
-                        'is-status-closed' : item.status == 'closed'
-                      }" 
+                <draggable class="wk-day__tasks" handler="wk-day__tasks" :list="day.tasks" group="tasks" @change="changeSortable($event, day)">
+                  <div class="wk-day__task" 
+                        v-for="item in day.tasks" 
+                        :key="item.id"
+                        :class="{
+                          'is-status-closed' : item.status == 'closed'
+                        }" 
 
-                  >
-                  <div class="wk-day-task" >
-                    <div class="wk-day-task__title">{{ item.title }}</div> 
-                    <div class="wk-day-task__checkbox" v-if="item.title">
-                      <checkbox :checked="item.status == 'closed'" ></checkbox> 
+                    >
+
+                    <div class="wk-day-task" v-if="item.date" >
+                      <div class="wk-day-task__title">{{ item.title }} {{ item.date ? getDateTaskFormat(item.date) : '' }}</div> 
+                      <div class="wk-day-task__checkbox" v-if="item.title">
+                        <checkbox 
+                          :checked="item.status == 'closed'"
+                          @onChange="changeTaskCheckbox($event, day, item)"
+                        ></checkbox> 
+                      </div>
                     </div>
+
+                    <div class="wk-create-task" v-else >
+                      <div class="wk-create-task__input">Добавить задачу</div>
+                      <div class="wk-create-task__icon">
+                        <icon icon-name="ic_add"></icon> 
+                      </div>
+                    </div>
+
+
                   </div>
-                </div>
                 </draggable>
                 
                
@@ -52,14 +66,16 @@
 
   import checkbox from '@/common-components/checkbox'
   import draggable from 'vuedraggable'
-  import { mapMutations } from 'vuex'
+  import { mapMutations, mapActions } from 'vuex'
   import { DateTime } from "luxon";
+  import icon from '@/common-components/icon'
 
   export default {
       name: 'workspace-default',
       components: {
         checkbox,
-        draggable
+        draggable,
+        icon
       },
 
       data() {
@@ -77,7 +93,9 @@
 
       computed:{
 
-        statusDay(){
+         
+
+        isCurrentDay() {
           return DateTime.now().startOf('day').toSeconds()
         },
 
@@ -112,8 +130,17 @@
       methods: {
 
         ...mapMutations([
-          'changeTaskDate'
+          'changeTaskDate',
+          'changeTaskStatus',
         ]),
+
+        ...mapActions([
+          'SendChangeTask',
+        ]), 
+
+        getDateTaskFormat(date) {
+          return DateTime.fromSeconds(Number(date)).toFormat('dd.MM')
+        },
 
         createRowEmpty(day) {
 
@@ -144,11 +171,14 @@
         },
 
         changeSortable(e, day) {
+
+           
+
           if('added' in e) {
 
-            if(day.date < DateTime.now().startOf('day').toSeconds()) {
-              return false
-            }
+            // if(day.date < DateTime.now().startOf('day').toSeconds()) {
+            //   return false
+            // }
 
             this.changeTaskDate({
               task_id: e.added.element.id,
@@ -157,6 +187,16 @@
 
           }
 
+          
+        },
+
+        changeTaskCheckbox(e, day, task) {
+
+          this.SendChangeTask({
+              task_id : task.id,
+              newStatus : e.checked ? 'closed' : 'work',
+              newDate: day.date
+            })
           
         }
       }

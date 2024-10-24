@@ -1,6 +1,6 @@
 <template>
     <label class="checkbox">
-        <input type="checkbox" :checked="checked">
+        <input type="checkbox" @change="onChange" :checked="checked">
         <span class="checkbox__elem"></span>
         <span class="checkbox__text">{{ text }}</span>
     </label>
@@ -12,6 +12,14 @@ export default {
     props: {
         text: String,
         checked: Boolean
+    },
+
+    methods: {
+        onChange(e) {
+            this.$emit('onChange', {
+                checked: e.target.checked 
+            })
+        }
     }
 }
 </script>

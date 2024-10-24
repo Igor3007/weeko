@@ -115,14 +115,13 @@ export default {
       return this.getUserTasks.filter(item => {
 
 
-        //если дата задачи меньше или равно текущей
-        if(Number(item.date) <= DateTime.now().startOf('day').toSeconds()) {
+        //если дата задачи меньше или равно текущей и у задачи заполнена дата
+        if(Number(item.date) <= DateTime.now().startOf('day').toSeconds() && item.date && item.status == 'work') {
 
           //если дата равна текущей добавляем задачу на текущий день
           if(timestamp == DateTime.now().startOf('day').toSeconds()) {
-            
-            if(item.status == 'work' && item.date) return true
-
+            // if(item.status == 'work' && item.date) 
+            return true
           }
 
         }else{

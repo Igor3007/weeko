@@ -25,7 +25,14 @@
         }
 
         &.is-last-day {
-            pointer-events: none;
+            //pointer-events: none;
+        }
+        &.is-current-day {
+            & .wk-day {
+                &__date {
+                    color: var(--accent-1);
+                }
+            } 
         }
 
 

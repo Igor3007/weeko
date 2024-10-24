@@ -28,6 +28,19 @@ const mutations = {
             }
         })
 
+    },
+
+    changeTaskStatus(state, data) {
+
+        state.tasks.forEach(item => {
+            if (item.id == data.task_id) {
+                item.status = data.newStatus
+                item.date = data.newDate
+            }
+        })
+
+
+
     }
 }
 
@@ -37,6 +50,10 @@ const actions = {
             .then(response => {
                 context.commit('setUserTask', response.data)
             })
+    },
+
+    SendChangeTask(context, data) {
+        context.commit('changeTaskStatus', data)
     }
 }
 

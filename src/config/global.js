@@ -1,7 +1,7 @@
 export const globalConfig = {
     user: null,
     settings: {
-        theme: 'light',
+        themeDefault: false,
         lang: 'ru'
     },
 
