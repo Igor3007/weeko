@@ -189,7 +189,7 @@ export default {
 
             this.switchParentHammer(true)
 
-            this.$emit('closed')
+            
           } else {
             this.cardP = 0
           }
@@ -258,6 +258,8 @@ export default {
 
       this.switchParentHammer(true)
 
+      
+
       this.$emit('closed')
 
       const scrollBar = this.$refs.bottomSheet.querySelector('.vb-visible')
@@ -267,6 +269,9 @@ export default {
       }
     },
     clickOnBottomSheet (event) {
+
+       
+
       if (this.clickToClose && (event.target === this.$refs.bottomSheet) || (event.target === this.$refs.bottomSheetBackdrop)) {
         this.close()
       }

@@ -1,0 +1,43 @@
+.task-editor .ql-editor {
+    font-family: 'Commissioner';
+      min-height: 40px;
+      font-size: 16px;
+    
+    & * {
+      font-size: 16px;
+      line-height: 160%;
+    }
+  
+    & strong {
+      font-weight: bold;
+    }
+  
+    & h2 {
+      @include text-style-mobile-h-2;
+  
+      @media screen and (min-width: $w760) {
+      @include text-style-desktop-h-2
+      }
+    }
+
+    & ul {
+        padding-left: 0;
+       
+        & li {
+            line-height: 160%;
+            
+
+            &::before {
+                content: '\2022';
+                font-size: 24px;
+                position: relative;
+                top: 1px;
+            }
+        }
+
+         
+    }
+
+     
+  }
+  

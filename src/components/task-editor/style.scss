@@ -1,0 +1,114 @@
+.task-editor{
+
+    color: var(--text-icons-base);
+
+    &__top {
+        padding-bottom: 24px;
+    }
+
+    &__title{
+        padding-bottom: 32px;
+    }
+
+    & svg {
+        transition: 0.2s ease;
+    }
+
+     
+}
+
+.te-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    &__date{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: 0.3s ease;
+
+        & svg {
+            fill: var(--text-icons-base);
+        }
+
+        &:hover {
+
+            color: var(--accent-1);
+
+            & svg {
+                fill: var(--accent-1);
+            }  
+        }
+    }
+
+    &__remove{
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        & svg {
+            fill: var(--text-icons-base);
+        }
+
+        &:hover {
+            & svg {
+                fill: var(--alert-red);
+            }  
+        }
+    }
+}
+
+.te-title {
+
+    display: flex;
+    align-items: center;
+
+    &__name {
+        display: flex;
+        align-items: center;
+
+        @include font-h1;
+
+        & input {
+            border: none;
+            background-color: transparent;
+            font-weight: bold;
+            color: var(--text-icons-base);
+
+            &::placeholder {
+                 font-weight: normal;
+            }
+        }
+    }
+
+    &__edit{
+        margin-left: 16px;
+        cursor: pointer;
+
+        & svg {
+            fill: var(--text-icons-base);
+        }
+
+        &:hover {
+            & svg {
+                fill: var(--accent-1);
+            }  
+        }
+    }
+
+    &__close{
+        margin-left: auto;
+        padding-left: 12px;
+        cursor: pointer;
+        & svg {
+            fill: var(--text-icons-base);
+        }
+
+        &:hover {
+            & svg {
+                fill: var(--accent-1);
+            }  
+        }
+    }
+} 

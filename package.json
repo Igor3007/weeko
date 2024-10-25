@@ -17,6 +17,7 @@
     "vue": "^2.6.14",
     "vue-cookies": "^1.8.4",
     "vue-router": "^3.5.1",
+    "vue2-editor": "^2.10.3",
     "vuedraggable": "^2.24.3",
     "vuex": "^3.6.2"
   },

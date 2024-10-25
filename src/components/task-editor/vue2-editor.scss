@@ -1,0 +1,163 @@
+.ql-editor {
+  min-height: 200px;
+  font-size: 16px;
+}
+
+.ql-snow .ql-stroke.ql-thin,
+.ql-snow .ql-thin {
+  stroke-width: 1px !important;
+}
+
+.quillWrapper .ql-snow.ql-toolbar {
+  padding-top: 8px;
+  padding-bottom: 4px;
+}
+/* .quillWrapper .ql-snow.ql-toolbar button {
+  margin: 1px 4px;
+} */
+.quillWrapper .ql-snow.ql-toolbar .ql-formats {
+  margin-bottom: 10px;
+}
+
+.task-editor {
+  .ql-snow .ql-toolbar button svg,
+  .quillWrapper .ql-snow.ql-toolbar button svg {
+    width: 22px;
+    height: 22px;
+}
+
+.ql-editor.ql-blank::before {
+	font-style: normal;
+  color: var(--text-icons-secondary-small);
+}
+}
+
+
+
+
+
+.quillWrapper .ql-editor ul[data-checked=false] > li::before,
+.quillWrapper .ql-editor ul[data-checked=true] > li::before {
+  font-size: 1.35em;
+  vertical-align: baseline;
+  bottom: -0.065em;
+  font-weight: 900;
+  color: #222;
+}
+
+.quillWrapper .ql-snow .ql-stroke {
+  stroke: rgba(63, 63, 63, 0.95);
+  stroke-linecap: square;
+  stroke-linejoin: initial;
+  stroke-width: 1.7px;
+}
+
+.quillWrapper .ql-picker-label {
+  font-size: 15px;
+}
+
+.quillWrapper .ql-snow .ql-active .ql-stroke {
+  stroke-width: 2.25px;
+}
+
+.quillWrapper .ql-toolbar.ql-snow .ql-formats {
+  vertical-align: top;
+}
+
+.ql-picker {
+  &:not(.ql-background) {
+    position: relative;
+    top: 2px;
+  }
+
+  &.ql-color-picker {
+    svg {
+      width: 22px !important;
+      height: 22px !important;
+    }
+  }
+}
+
+.quillWrapper {
+
+  margin: 0 -12px;
+  font-family: inherit;
+
+  & .ql-snow .ql-tooltip {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px #ddd;
+    color: #444;
+    padding: 5px 12px;
+    white-space: nowrap;
+  }
+
+  & .ql-container {
+    padding-top: 16px;
+  }
+
+  & .imageResizeActive {
+    img {
+      display: block;
+      cursor: pointer;
+    }
+
+    & ~ div svg {
+      cursor: pointer;
+    }
+  }
+
+  & .ql-toolbar {
+    & svg {
+
+      
+
+      & .ql-fill{
+        fill: var(--text-icons-base);
+      }
+      & .ql-stroke {
+        stroke: var(--text-icons-base);
+      } 
+    }
+
+    & button {
+      &:hover {
+        & svg {
+          & .ql-fill{
+            fill: var(--accent-1);
+          }
+          & .ql-stroke {
+            stroke: var(--accent-1);
+          } 
+        }
+      }
+
+      &.ql-active {
+        & svg {
+          & .ql-fill{
+            fill: var(--accent-1);
+          }
+          & .ql-stroke {
+            stroke: var(--accent-1);
+          } 
+        }
+      }
+    }
+  }
+}
+
+.ql-container.ql-snow,
+.ql-toolbar.ql-snow {
+	border: none !important;
+  
+}
+
+.ql-formats {
+  & > button {
+    margin-right: 8px ;
+  }
+}
+
+
+
+ 

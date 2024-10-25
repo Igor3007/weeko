@@ -75,6 +75,10 @@
             padding-right: 16px;
             color: var(--text-icons-base);
             border: none;
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            transition: 0.3s linear;
+            margin-top: -2px;
 
             &::placeholder {
                 @include text-style-base-text-bold;
@@ -86,6 +90,18 @@
             &:focus {
                 outline: none;
                 opacity: 1;
+
+                &::placeholder {
+                    font-weight: normal;
+                    color: var(--text-icons-secondary-small);
+                }
+            }
+
+            &.animate-swap {
+                 
+                    opacity: 0;
+                    transform: translateX(-40px) scale(0.7);
+                
             }
         }
     }
@@ -98,6 +114,9 @@
 
 
     &:hover {
+
+        
+
         .wk-create-task {
 
             &__input input,
@@ -141,6 +160,9 @@
     }
 
     &:hover {
+
+        background-color: var(--bg-special);
+
         & .wk-day-task {
             &__checkbox {
                 opacity: 1;

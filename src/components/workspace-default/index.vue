@@ -44,7 +44,7 @@
 
                     <div class="wk-create-task" v-else >
                       <div class="wk-create-task__input">
-                        <input type="text" placeholder="Добавить задачу" @blur="onBlurInputCreate($event, day)">
+                        <input type="text" :placeholder="lang.ADD_TASK" @focus="onFocusInputCreate" @blur="onBlurInputCreate($event, day)">
                       </div>
                       <div class="wk-create-task__icon" @click="createTaskOnEditor(day)">
                         <icon icon-name="ic_add" ></icon> 
@@ -149,13 +149,28 @@
           })
         },
 
-        onBlurInputCreate(e, day) {
+        onBlurInputCreate(e, day) { 
+
+          e.target.setAttribute('placeholder', this.lang.ADD_TASK)
+
             if(e.target.value) {
               this.createTask({
                 title: e.target.value,
                 date: day.date
               })
+
+              e.target.value = ''
             }
+        },
+
+        onFocusInputCreate(e) {
+
+          e.target.classList.add('animate-swap')
+
+          e.target.setAttribute('placeholder', this.lang.ENTER_NAME)
+          
+
+          setTimeout(() => {!e.target.classList.contains('animate-swap') || e.target.classList.remove('animate-swap')}, 120)
         },
 
         createTask(data) {
@@ -186,6 +201,10 @@
               for(let i=0; i < delta; i++) {
                 day.tasks.push({})
               }
+
+              if(delta <= 0) {
+                day.tasks.push({})
+              }
             }
 
             // выходной и бездаты
@@ -196,6 +215,10 @@
               let delta = this.dayParams.minWeekEnd - count
 
               for(let i=0; i < delta; i++) {
+                day.tasks.push({})
+              }
+
+              if(delta <= 0) {
                 day.tasks.push({})
               }
             }
@@ -224,6 +247,8 @@
         },
 
         changeTaskCheckbox(e, day, task) {
+
+           
 
           this.SendChangeTask({
               task_id : task.id,

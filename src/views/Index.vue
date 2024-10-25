@@ -8,8 +8,8 @@
       >
     </headerWorkspace>
     <workspaceDefault :tasks="createWeekParams" @onCreateTaskEditor="createTaskEditor()" ></workspaceDefault>
-    <bottom-sheet ref="popupCreateTask" max-width="640px">
-      <div>create task</div>
+    <bottom-sheet ref="popupCreateTask" max-width="640px" @closed="beforeClosePopup" @opened="beforeOpenPopup">
+       <taskEditor ref="taskEditor" />
     </bottom-sheet>
   </div>
    
@@ -20,13 +20,14 @@
 import headerWorkspace from '../components/header-workspace/'
 import workspaceDefault from '../components/workspace-default'
 import bottomSheet from '@/common-components/bottom-sheet'
+import taskEditor from '../components/task-editor/input.vue'
 import { DateTime } from "luxon";
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'WorkSpace',
   components: {
-    headerWorkspace, workspaceDefault, bottomSheet
+    headerWorkspace, workspaceDefault, bottomSheet, taskEditor
   },
 
   data() {
@@ -80,8 +81,34 @@ export default {
   methods: {
 
     ...mapActions([
-      'fetchUserTasks'
+      'fetchUserTasks', 'SendCreateTask'
     ]),
+
+    beforeOpenPopup() {
+     
+    },
+
+    beforeClosePopup() {
+      let data = this.$refs.taskEditor.saveTask()
+
+      if(data.title.length) {
+
+        let params = {
+              
+          id: Math.floor(Math.random() * 9999),
+          date: DateTime.now().startOf('day').toSeconds() ,
+          title: "Новая задача",
+          desc: "",
+          status: "work",
+          user_id: "1",
+          color: "",
+
+          ...data
+        }
+
+        this.SendCreateTask(params)
+      }
+    },
 
     createTaskEditor() {
       this.$refs.popupCreateTask.open()
