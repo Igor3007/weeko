@@ -7,10 +7,35 @@
       :currentMonth = currentMonth
       >
     </headerWorkspace>
-    <workspaceDefault :tasks="createWeekParams" @onCreateTaskEditor="createTaskEditor()" ></workspaceDefault>
-    <bottom-sheet ref="popupCreateTask" max-width="640px" @closed="beforeClosePopup" @opened="beforeOpenPopup">
+
+    <workspaceDefault 
+      :tasks="createWeekParams" 
+      @onCreateTaskEditor="createTaskEditor()" >
+    </workspaceDefault>
+
+    <bottom-sheet 
+      ref="popupCreateTask" 
+      max-width="640px" 
+      @closed="beforeClosePopup" 
+      @opened="beforeOpenPopup">
        <taskEditor ref="taskEditor" />
     </bottom-sheet>
+
+    <bottom-sheet 
+      ref="popupLogin" 
+      max-width="640px" 
+    >
+
+      <div class="auth-popup" >
+        <div class="auth-popup__logo" ></div>
+        <div class="auth-popup__title" ></div>
+        <div class="auth-popup__desc" >
+          Вы можете попробовать возможности сервиса и без регистрации. Но <strong>для сохранения</strong> задач, календарей и заметок вам нужно Зарегистрироваться или Войти.
+        </div>
+      </div>
+       
+    </bottom-sheet>
+
   </div>
    
 </template>
@@ -44,6 +69,10 @@ export default {
 
   created() {
     if(!this.getUserTasks.length) this.fetchUserTasks() 
+  },
+
+  mounted() {
+    this.$refs.popupLogin.open()
   },
 
   computed:  {
@@ -168,7 +197,6 @@ export default {
 
       })
     },
-
     
 
   },

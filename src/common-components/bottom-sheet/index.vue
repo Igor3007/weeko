@@ -140,6 +140,7 @@ export default {
       }
     }
   },
+  
   computed: {
     cardStyle () {
       return {
@@ -158,12 +159,14 @@ export default {
   },
 
   methods: {
+
     isIphone () {
       let iPhone = /iPhone/.test(navigator.userAgent) && !window.MSStream
       let aspect = window.screen.width / window.screen.height
 
       return iPhone && aspect.toFixed(3) === '0.462'
     },
+
     move (event, type) {
       if (this.swipeAble) {
         let delta = -event.deltaY
@@ -196,6 +199,7 @@ export default {
         }
       }
     },
+
     init () {
       return new Promise(resolve => {
         this.contentH = 'auto'
@@ -231,6 +235,7 @@ export default {
         }, 10)
       })
     },
+
     async open () {
       await this.init()
 
@@ -247,6 +252,7 @@ export default {
 
       this.$emit('opened')
     },
+
     close () {
       this.opened = false
       this.cardP =
@@ -257,9 +263,6 @@ export default {
       document.body.style.overflow = ''
 
       this.switchParentHammer(true)
-
-      
-
       this.$emit('closed')
 
       const scrollBar = this.$refs.bottomSheet.querySelector('.vb-visible')
@@ -268,14 +271,14 @@ export default {
         scrollBar.querySelector('.vb-content').scrollTo(0, 0)
       }
     },
-    clickOnBottomSheet (event) {
 
-       
+    clickOnBottomSheet (event) {
 
       if (this.clickToClose && (event.target === this.$refs.bottomSheet) || (event.target === this.$refs.bottomSheetBackdrop)) {
         this.close()
       }
     },
+
     switchParentHammer (enable = false) {
       const { pan, content } = this.parentHammer
 
