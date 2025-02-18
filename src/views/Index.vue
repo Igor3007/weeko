@@ -27,8 +27,10 @@
     >
 
       <div class="auth-popup" >
-        <div class="auth-popup__logo" ></div>
-        <div class="auth-popup__title" ></div>
+        <div class="auth-popup__logo" >
+          <span class="bgimage" style="background-image: url('/img/logo.svg');" ></span>
+        </div>
+        <div class="auth-popup__title" >Приветствуем в Weeko!</div>
         <div class="auth-popup__desc" >
           Вы можете попробовать возможности сервиса и без регистрации. Но <strong>для сохранения</strong> задач, календарей и заметок вам нужно Зарегистрироваться или Войти.
         </div>
