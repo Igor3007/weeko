@@ -85,7 +85,7 @@
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
- 
+
 }
 
 
@@ -131,6 +131,10 @@
 
   @media screen and (min-width: $w576) {
     bottom: auto !important;
+  }
+
+  @media screen and (min-width: $w1200) {
+    animation: 0.2s ease 0.2s both zoomInUp;
   }
 
   &.square {

@@ -23,18 +23,12 @@
 
     <bottom-sheet 
       ref="popupLogin" 
-      max-width="640px" 
+      max-width="560px" 
     >
 
-      <div class="auth-popup" >
-        <div class="auth-popup__logo" >
-          <span class="bgimage" style="background-image: url('/img/logo.svg');" ></span>
-        </div>
-        <div class="auth-popup__title" >Приветствуем в Weeko!</div>
-        <div class="auth-popup__desc" >
-          Вы можете попробовать возможности сервиса и без регистрации. Но <strong>для сохранения</strong> задач, календарей и заметок вам нужно Зарегистрироваться или Войти.
-        </div>
-      </div>
+      <auth-popup></auth-popup>
+
+      
        
     </bottom-sheet>
 
@@ -48,13 +42,14 @@ import headerWorkspace from '../components/header-workspace/'
 import workspaceDefault from '../components/workspace-default'
 import bottomSheet from '@/common-components/bottom-sheet'
 import taskEditor from '../components/task-editor/input.vue'
+import authPopup from '../components/auth/auth-popup/auth-popup.vue'
 import { DateTime } from "luxon";
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'WorkSpace',
   components: {
-    headerWorkspace, workspaceDefault, bottomSheet, taskEditor
+    headerWorkspace, workspaceDefault, bottomSheet, taskEditor, authPopup
   },
 
   data() {

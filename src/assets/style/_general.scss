@@ -81,6 +81,10 @@ a {
     text-decoration: none;
 }
 
+strong {
+    font-weight: 600;
+}
+
 img {
     display: block;
     max-width: 100%;
@@ -243,6 +247,6 @@ input[type="date"] {
     transition: opacity 0.5s ease;
 }
 
-.sortable-ghost ~ div:last-child {
+.sortable-ghost~div:last-child {
     display: none
-  }
+}

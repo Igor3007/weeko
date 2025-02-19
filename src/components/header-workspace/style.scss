@@ -29,13 +29,35 @@
     display: flex;
     justify-content: space-between;
     padding: 15px 0;
+    flex-wrap: wrap;
+
+    &__nav {
+        width: 100%;
+        padding-bottom: 24px;
+
+        @media screen and (min-width: $w576) {
+            width: auto;
+            padding-bottom: 0;
+        }
+    }
 
     &__action {
+
+        width: 100%;
+
+        @media screen and (min-width: $w576) {
+            width: auto;
+        }
 
         & ul {
             display: flex;
             align-items: center;
             gap: 8px;
+            justify-content: space-between;
+
+            @media screen and (min-width: $w480) {
+                justify-content: flex-end;
+            }
 
             & li {
                 @include header-icon-style();
@@ -48,10 +70,13 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    width: 100%;
 
     &__current {
         @include font-h1();
         margin-right: 12px;
+
+
 
         &:hover {
             color: var(--accent-1);
@@ -68,4 +93,9 @@
 .hw-week-number {
     @include text-style-base-text-reg();
     color: var(--text-icons-secondary-small);
+
+    @media screen and (max-width: $w576) {
+        font-size: 14px;
+        line-height: 100%;
+    }
 }
