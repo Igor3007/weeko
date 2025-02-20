@@ -42,7 +42,7 @@ import headerWorkspace from '../components/header-workspace/'
 import workspaceDefault from '../components/workspace-default'
 import bottomSheet from '@/common-components/bottom-sheet'
 import taskEditor from '../components/task-editor/input.vue'
-import authPopup from '../components/auth/auth-popup/auth-popup.vue'
+import authPopup from '../components/auth/login-popup/login-popup.vue'
 import { DateTime } from "luxon";
 import { mapActions, mapGetters } from 'vuex';
 
